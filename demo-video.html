@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1280">
+<title>Gmail Surge — Animated Demo | See How Bulk Email Sending Works</title>
+<meta name="description" content="Watch an interactive animated demo of Gmail Surge in action. See how to import CSV contacts, compose personalized emails, and send bulk campaigns directly from Gmail.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://gmailsurge.com/demo-video.html">
+<meta property="og:title" content="Gmail Surge — Animated Demo">
+<meta property="og:description" content="Watch an interactive animated demo of Gmail Surge. See how to import CSV contacts, compose personalized emails, and send bulk campaigns from Gmail.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gmailsurge.com/demo-video.html">
+<meta property="og:image" content="https://gmailsurge.com/og-image.png">
+<meta property="og:site_name" content="Gmail Surge">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gmail Surge — Animated Demo">
+<meta name="twitter:description" content="Interactive demo of Gmail Surge: CSV import, personalized templates, and bulk sending from your Gmail.">
+<meta name="twitter:image" content="https://gmailsurge.com/og-image.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1280px;
+    height: 720px;
+    overflow: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #0F0E1A;
+    position: relative;
+  }
+
+  .scene {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s ease;
+  }
+
+  .scene.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* ── Timeline bar ── */
+  .timeline {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    z-index: 100;
+  }
+  .timeline-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #6366F1, #A78BFA, #FCD34D);
+    transition: width 0.3s linear;
+  }
+
+  .scene-label {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 20px;
+    background: rgba(15,14,26,0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    z-index: 100;
+    letter-spacing: 0.5px;
+    transition: opacity 0.4s;
+  }
+
+  .controls {
+    position: fixed;
+    bottom: 14px;
+    right: 30px;
+    display: flex;
+    gap: 8px;
+    z-index: 101;
+  }
+  .ctrl-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+  }
+  .ctrl-btn:hover { background: rgba(255,255,255,0.2); }
+
+  /* ── Scene 0: Intro ── */
+  .s0-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1E1B4B 0%, #312E81 40%, #4F46E5 80%, #6366F1 100%);
+  }
+  .s0-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+  }
+  .s0-orb1 { width: 500px; height: 500px; background: rgba(167,139,250,0.25); top: -120px; right: -60px; }
+  .s0-orb2 { width: 350px; height: 350px; background: rgba(110,231,183,0.15); bottom: -80px; left: 100px; }
+
+  .s0-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: white;
+  }
+
+  .s0-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #4F46E5, #6366F1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+    box-shadow: 0 20px 60px rgba(79,70,229,0.5);
+    opacity: 0;
+    transform: scale(0.5);
+    animation: iconPop 0.6s 0.3s ease forwards;
+  }
+
+  @keyframes iconPop {
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .s0-title {
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    line-height: 1.1;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.7s 0.6s ease forwards;
+  }
+
+  .s0-title .gold {
+    background: linear-gradient(135deg, #FCD34D, #F59E0B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .s0-sub {
+    font-size: 20px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 16px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.7s 0.9s ease forwards;
+  }
+
+  .s0-pills {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 32px;
+    opacity: 0;
+    animation: fadeUp 0.7s 1.2s ease forwards;
+  }
+
+  .s0-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .s0-pill .num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Scene 1: OAuth ── */
+  .s1-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #312E81 0%, #4F46E5 40%, #6366F1 70%, #818CF8 100%);
+  }
+
+  .s1-layout {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    max-width: 1100px;
+    padding: 0 40px;
+  }
+
+  .s1-left { flex: 1; color: white; }
+  .s1-badge {
+    display: inline-flex;
+    padding: 6px 14px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .s1-title {
+    font-size: 44px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+  }
+
+  .s1-desc {
+    font-size: 17px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.6);
+    max-width: 400px;
+  }
+
+  .popup-frame {
+    width: 380px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.1);
+  }
+
+  .popup-chrome {
+    background: #f8f9fa;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .dot-btn { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #EF4444; }
+  .dot-y { background: #F59E0B; }
+  .dot-g { background: #10B981; }
+
+  .popup-body-login {
+    background: linear-gradient(135deg, #EEF2FF, #E0E7FF);
+    padding: 48px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .popup-icon-wrap {
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #4F46E5, #6366F1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(79,70,229,0.3);
+  }
+
+  .popup-brand {
+    font-size: 22px;
+    font-weight: 700;
+    color: #4F46E5;
+    margin-bottom: 8px;
+  }
+
+  .popup-tagline {
+    font-size: 14px;
+    color: #6B7280;
+    line-height: 1.5;
+    margin-bottom: 28px;
+    max-width: 280px;
+  }
+
+  .google-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background: #4F46E5;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(79,70,229,0.35);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .google-btn .click-ring {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  .google-btn.clicked .click-ring {
+    animation: clickRipple 0.6s ease forwards;
+  }
+
+  @keyframes clickRipple {
+    0% { transform: scale(0); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 0; }
+  }
+
+  .cursor-ptr {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    z-index: 50;
+    opacity: 0;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    transition: none;
+  }
+
+  .oauth-success {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 8px 16px;
+    background: #D1FAE5;
+    border: 1px solid #A7F3D0;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #065F46;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  .oauth-success.show {
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  /* ── Scene 2: CSV Upload ── */
+  .s2-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(150deg, #0F172A 0%, #1E1B4B 40%, #312E81 100%);
+  }
+
+  .s2-grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(99,102,241,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99,102,241,0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .s2-layout {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    max-width: 1100px;
+    padding: 0 40px;
+  }
+
+  .s2-left { flex: 1; color: white; }
+
+  .popup-app {
+    width: 400px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.08);
+    background: #F9FAFB;
+  }
+
+  .popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: white;
+    border-bottom: 1px solid #E5E7EB;
+  }
+
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    color: #4F46E5;
+  }
+
+  .icon-sm {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #4F46E5, #6366F1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .user-email { font-size: 11px; color: #6B7280; }
+
+  .tab-bar {
+    display: flex;
+    background: white;
+    border-bottom: 1px solid #E5E7EB;
+  }
+
+  .tab-item {
+    flex: 1;
+    padding: 9px 4px;
+    font-size: 11px;
+    font-weight: 500;
+    color: #6B7280;
+    text-align: center;
+    border-bottom: 2px solid transparent;
+  }
+  .tab-item.active { color: #4F46E5; font-weight: 600; border-bottom-color: #4F46E5; }
+
+  .step-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    background: white;
+    border-bottom: 1px solid #E5E7EB;
+  }
+
+  .step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    border: 2px solid #E5E7EB;
+    color: #6B7280;
+    background: white;
+  }
+  .step-num.active { border-color: #4F46E5; background: #4F46E5; color: white; }
+  .step-num.done { border-color: #10B981; background: #10B981; color: white; }
+  .step-line { width: 36px; height: 2px; background: #E5E7EB; margin: 0 4px; }
+
+  .popup-inner { padding: 14px; }
+
+  .inner-title { font-size: 15px; font-weight: 700; color: #1F2937; margin-bottom: 3px; }
+  .inner-desc { font-size: 11px; color: #6B7280; margin-bottom: 12px; line-height: 1.4; }
+
+  .drop-zone {
+    border: 2px dashed #C7D2FE;
+    border-radius: 10px;
+    padding: 30px 20px;
+    text-align: center;
+    color: #6B7280;
+    font-size: 13px;
+    background: #FAFBFF;
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .drop-zone.dragover {
+    border-color: #4F46E5;
+    background: #EEF2FF;
+  }
+
+  .drop-zone-icon {
+    font-size: 28px;
+    margin-bottom: 6px;
+  }
+
+  .drop-label { font-weight: 500; color: #374151; }
+  .drop-sub { font-size: 11px; color: #9CA3AF; margin-top: 4px; }
+
+  .csv-result { display: none; }
+  .csv-result.show { display: block; }
+
+  .badge-row { display: flex; gap: 6px; margin-bottom: 8px; }
+  .badge {
+    display: inline-flex;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .badge-green { background: #D1FAE5; color: #065F46; }
+  .badge-blue { background: #EEF2FF; color: #4F46E5; }
+
+  .chip-row { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px; }
+  .chip {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 500;
+  }
+  .chip-email { background: #EEF2FF; border: 1px solid #C7D2FE; color: #4F46E5; font-weight: 700; }
+  .chip-var { background: #F9FAFB; border: 1px solid #E5E7EB; color: #6B7280; }
+
+  .mini-table {
+    width: 100%;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    border-collapse: collapse;
+  }
+  .mini-table th {
+    background: #F9FAFB;
+    font-size: 10px;
+    font-weight: 600;
+    text-align: left;
+    padding: 5px 8px;
+    border-bottom: 1px solid #E5E7EB;
+    color: #1F2937;
+  }
+  .mini-table td {
+    font-size: 10px;
+    padding: 4px 8px;
+    border-bottom: 1px solid #F3F4F6;
+    color: #374151;
+  }
+  .mini-table tr:last-child td { border-bottom: none; }
+
+  .btn {
+    padding: 7px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .btn-primary { background: #4F46E5; color: white; }
+  .btn-secondary { background: white; color: #374151; border: 1px solid #E5E7EB; }
+  .btn-success { background: #10B981; color: white; }
+
+  .action-row { display: flex; justify-content: flex-end; gap: 8px; }
+
+  /* ── Scene 3: Compose ── */
+  .s3-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #1E1B4B 0%, #312E81 30%, #4338CA 60%, #4F46E5 100%);
+  }
+
+  .s3-layout {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    max-width: 1100px;
+    padding: 0 40px;
+  }
+  .s3-left { flex: 1; color: white; }
+
+  .input-field {
+    width: 100%;
+    padding: 7px 10px;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    font-size: 12px;
+    color: #1F2937;
+    background: white;
+    margin-bottom: 8px;
+    font-family: inherit;
+  }
+
+  .var-bar {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .var-label { font-size: 10px; color: #6B7280; }
+  .var-chip {
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 500;
+    background: #EEF2FF;
+    border: 1px solid #C7D2FE;
+    color: #4F46E5;
+  }
+
+  .editor-wrap {
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  .editor-toolbar {
+    display: flex;
+    gap: 2px;
+    padding: 5px 8px;
+    background: #F9FAFB;
+    border-bottom: 1px solid #E5E7EB;
+  }
+  .tb-btn {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: none;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: #374151;
+  }
+  .tb-sep { width: 1px; height: 16px; background: #E5E7EB; margin: 4px 3px; }
+
+  .editor-body {
+    padding: 10px;
+    background: white;
+    min-height: 90px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #1F2937;
+  }
+
+  .var-inline {
+    background: #EEF2FF;
+    color: #4F46E5;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 11px;
+  }
+
+  /* ── Scene 4: Sending ── */
+  .s4-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #064E3B 0%, #065F46 30%, #047857 60%, #10B981 100%);
+  }
+
+  .s4-layout {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    max-width: 1100px;
+    padding: 0 40px;
+  }
+  .s4-left { flex: 1; color: white; }
+
+  .preview-card {
+    background: white;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+  .preview-label {
+    font-size: 9px;
+    font-weight: 600;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+  .preview-subject { font-size: 13px; font-weight: 600; color: #1F2937; margin-bottom: 3px; }
+  .preview-to { font-size: 11px; color: #6B7280; margin-bottom: 8px; }
+  .preview-body-text {
+    padding: 8px;
+    background: #F9FAFB;
+    border-radius: 5px;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #374151;
+  }
+
+  .limit-wrap { margin-bottom: 10px; }
+  .limit-info { display: flex; justify-content: space-between; font-size: 10px; color: #6B7280; margin-bottom: 3px; }
+  .progress-track { height: 5px; background: #E5E7EB; border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 3px; transition: width 2s ease; }
+  .progress-indigo { background: #4F46E5; }
+  .progress-green { background: #10B981; }
+
+  .send-progress {
+    text-align: center;
+    padding: 12px;
+    display: none;
+  }
+  .send-progress.show { display: block; }
+
+  .send-counter {
+    font-size: 32px;
+    font-weight: 800;
+    color: #10B981;
+    margin-bottom: 4px;
+  }
+
+  .send-status {
+    font-size: 12px;
+    color: #6B7280;
+    margin-bottom: 10px;
+  }
+
+  .email-log {
+    text-align: left;
+    max-height: 80px;
+    overflow: hidden;
+  }
+
+  .log-entry {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    color: #374151;
+    padding: 3px 0;
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  .log-entry.show {
+    animation: fadeUp 0.3s ease forwards;
+  }
+  .log-check { color: #10B981; font-weight: 700; }
+
+  /* ── Scene 5: Outro ── */
+  .s5-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1E1B4B 0%, #312E81 40%, #4F46E5 80%);
+  }
+  .s5-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: white;
+  }
+
+  .s5-check {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #10B981;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 36px;
+    box-shadow: 0 15px 40px rgba(16,185,129,0.4);
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  .s5-check.pop { animation: iconPop 0.5s ease forwards; }
+
+  .s5-title {
+    font-size: 48px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .s5-title.show { animation: fadeUp 0.6s 0.3s ease forwards; }
+
+  .s5-sub {
+    font-size: 18px;
+    color: rgba(255,255,255,0.6);
+    margin-top: 12px;
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  .s5-sub.show { animation: fadeUp 0.6s 0.5s ease forwards; }
+
+  .s5-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 32px;
+    padding: 14px 32px;
+    background: white;
+    color: #4F46E5;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    opacity: 0;
+    transform: translateY(15px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+  .s5-cta.show { animation: fadeUp 0.6s 0.7s ease forwards; }
+
+  /* ── Animated elements ── */
+  .typing-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 14px;
+    background: #4F46E5;
+    margin-left: 1px;
+    animation: blink 0.8s step-end infinite;
+    vertical-align: text-bottom;
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+
+  .section-badge {
+    display: inline-flex;
+    padding: 6px 14px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .section-title {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 14px;
+  }
+
+  .section-desc {
+    font-size: 16px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.55);
+    max-width: 380px;
+  }
+
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  .fade-in-up.animated {
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  .stagger-1 { animation-delay: 0s !important; }
+  .stagger-2 { animation-delay: 0.15s !important; }
+  .stagger-3 { animation-delay: 0.3s !important; }
+  .stagger-4 { animation-delay: 0.45s !important; }
+  .stagger-5 { animation-delay: 0.6s !important; }
+
+  .alert-bar {
+    padding: 8px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    margin-bottom: 10px;
+    background: #D1FAE5;
+    color: #065F46;
+    border: 1px solid #A7F3D0;
+  }
+
+  .file-flying {
+    position: absolute;
+    font-size: 40px;
+    opacity: 0;
+    z-index: 10;
+  }
+  .file-flying.animate {
+    animation: fileDrop 0.8s ease forwards;
+  }
+  @keyframes fileDrop {
+    0% { opacity: 0; transform: translate(-60px, -60px) scale(1.5) rotate(-15deg); }
+    50% { opacity: 1; transform: translate(-10px, -10px) scale(1.1) rotate(-5deg); }
+    100% { opacity: 0; transform: translate(0, 0) scale(0.5) rotate(0deg); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Timeline -->
+<div class="timeline"><div class="timeline-fill" id="timelineFill"></div></div>
+<div class="scene-label" id="sceneLabel">Gmail Surge Demo</div>
+<div class="controls">
+  <button class="ctrl-btn" id="prevBtn" title="Previous">&#9664;</button>
+  <button class="ctrl-btn" id="pauseBtn" title="Pause/Play">&#10074;&#10074;</button>
+  <button class="ctrl-btn" id="nextBtn" title="Next">&#9654;</button>
+</div>
+
+<!-- Scene 0: Intro -->
+<div class="scene active" id="scene0">
+  <div class="s0-bg"></div>
+  <div class="s0-orb s0-orb1"></div>
+  <div class="s0-orb s0-orb2"></div>
+  <div class="s0-content">
+    <div class="s0-icon">
+      <svg viewBox="0 0 48 48" fill="none" width="56" height="56">
+        <rect x="5" y="14" width="34" height="22" rx="4" fill="white" opacity="0.9"/>
+        <path d="M5 18L22 30L39 18" stroke="white" stroke-width="3" fill="none"/>
+        <path d="M27 10L23 24H28L24 38" fill="#FCD34D" stroke="#F59E0B" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <h1 class="s0-title">Gmail Surge<br><span class="gold">in 60 Seconds</span></h1>
+    <p class="s0-sub">See how to send personalized bulk emails from Gmail</p>
+    <div class="s0-pills">
+      <div class="s0-pill"><span class="num">1</span> Sign In</div>
+      <div class="s0-pill"><span class="num">2</span> Upload CSV</div>
+      <div class="s0-pill"><span class="num">3</span> Send Emails</div>
+    </div>
+  </div>
+</div>
+
+<!-- Scene 1: OAuth -->
+<div class="scene" id="scene1">
+  <div class="s1-bg"></div>
+  <div class="s1-layout">
+    <div class="s1-left">
+      <div class="section-badge fade-in-up stagger-1">Step 1 &mdash; Authenticate</div>
+      <div class="section-title fade-in-up stagger-2">Sign in with<br>Google OAuth</div>
+      <p class="section-desc fade-in-up stagger-3">One click to securely connect your Gmail account. No passwords stored, no backend — 100% client-side.</p>
+    </div>
+    <div style="flex-shrink:0">
+      <div class="popup-frame fade-in-up stagger-2">
+        <div class="popup-chrome">
+          <div class="dot-btn dot-r"></div>
+          <div class="dot-btn dot-y"></div>
+          <div class="dot-btn dot-g"></div>
+        </div>
+        <div class="popup-body-login">
+          <div class="popup-icon-wrap">
+            <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+              <rect x="4" y="12" width="28" height="18" rx="3" fill="white" opacity="0.9"/>
+              <path d="M4 15L18 25L32 15" stroke="white" stroke-width="2.5" fill="none"/>
+              <path d="M22 8L19 20H23L20 32" fill="#FCD34D" stroke="#F59E0B" stroke-width="1"/>
+            </svg>
+          </div>
+          <div class="popup-brand">Gmail Surge</div>
+          <p class="popup-tagline">Send personalized bulk emails from your Gmail account using CSV contacts.</p>
+          <button class="google-btn" id="googleBtn">
+            <div class="click-ring"></div>
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            Sign in with Google
+          </button>
+          <div class="oauth-success" id="oauthSuccess">&#10003; Connected as user@gmail.com</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <svg class="cursor-ptr" id="cursor1" viewBox="0 0 24 24"><path d="M5 3l14 8-6 2-3 6z" fill="white" stroke="#1F2937" stroke-width="1.5"/></svg>
+</div>
+
+<!-- Scene 2: CSV Upload -->
+<div class="scene" id="scene2">
+  <div class="s2-bg"></div>
+  <div class="s2-grid-bg"></div>
+  <div class="s2-layout">
+    <div class="s2-left">
+      <div class="section-badge fade-in-up stagger-1">Step 2 &mdash; Import</div>
+      <div class="section-title fade-in-up stagger-2">Upload Your<br>CSV Contacts</div>
+      <p class="section-desc fade-in-up stagger-3">Drag & drop a CSV file. Gmail Surge auto-detects email columns and personalization variables.</p>
+    </div>
+    <div style="flex-shrink:0;position:relative">
+      <div class="file-flying" id="fileFlying">&#128196;</div>
+      <div class="popup-app fade-in-up stagger-2">
+        <div class="popup-header">
+          <div class="header-brand">
+            <div class="icon-sm">
+              <svg viewBox="0 0 14 14" fill="none" width="12" height="12"><rect x="1" y="4" width="11" height="7" rx="1.5" fill="white" opacity="0.9"/><path d="M1 5.5L6.5 9.5L12 5.5" stroke="white" stroke-width="1.2"/></svg>
+            </div>
+            Gmail Surge
+          </div>
+          <div class="user-email">user@gmail.com</div>
+        </div>
+        <div class="tab-bar">
+          <div class="tab-item active">Send</div>
+          <div class="tab-item">Templates</div>
+          <div class="tab-item">Campaigns</div>
+          <div class="tab-item">Settings</div>
+        </div>
+        <div class="step-bar">
+          <div class="step-num active">1</div>
+          <div class="step-line"></div>
+          <div class="step-num">2</div>
+          <div class="step-line"></div>
+          <div class="step-num">3</div>
+        </div>
+        <div class="popup-inner">
+          <div class="inner-title">Upload Contacts</div>
+          <div class="inner-desc">Upload a CSV file with an email column and optional fields.</div>
+          <div class="drop-zone" id="dropZone">
+            <div class="drop-zone-icon">&#128193;</div>
+            <div class="drop-label">Drag & drop a CSV file here</div>
+            <div class="drop-sub">or click to browse files</div>
+          </div>
+          <div class="csv-result" id="csvResult">
+            <div class="badge-row">
+              <span class="badge badge-green">&#10003; contacts.csv</span>
+              <span class="badge badge-blue">248 contacts</span>
+              <span class="badge badge-blue">5 columns</span>
+            </div>
+            <div class="chip-row">
+              <span class="chip chip-email">email</span>
+              <span class="chip chip-var">first_name</span>
+              <span class="chip chip-var">last_name</span>
+              <span class="chip chip-var">company</span>
+              <span class="chip chip-var">role</span>
+            </div>
+            <table class="mini-table">
+              <thead><tr><th>email</th><th>first_name</th><th>company</th><th>role</th></tr></thead>
+              <tbody>
+                <tr><td>sarah@acme.com</td><td>Sarah</td><td>Acme Inc</td><td>CTO</td></tr>
+                <tr><td>john@startup.io</td><td>John</td><td>StartupIO</td><td>Founder</td></tr>
+                <tr><td>lisa@bigco.com</td><td>Lisa</td><td>BigCo</td><td>VP Eng</td></tr>
+              </tbody>
+            </table>
+            <div class="action-row">
+              <button class="btn btn-primary">Next: Compose &rarr;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scene 3: Compose -->
+<div class="scene" id="scene3">
+  <div class="s3-bg"></div>
+  <div class="s3-layout">
+    <div class="s3-left">
+      <div class="section-badge fade-in-up stagger-1">Step 3 &mdash; Compose</div>
+      <div class="section-title fade-in-up stagger-2" style="background: linear-gradient(135deg, #FCD34D, #F59E0B); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Write Once,<br>Personalize for All</div>
+      <p class="section-desc fade-in-up stagger-3">Use {{variables}} from your CSV to personalize every email. Rich text editor with templates.</p>
+    </div>
+    <div style="flex-shrink:0">
+      <div class="popup-app fade-in-up stagger-2">
+        <div class="popup-header">
+          <div class="header-brand">
+            <div class="icon-sm">
+              <svg viewBox="0 0 14 14" fill="none" width="12" height="12"><rect x="1" y="4" width="11" height="7" rx="1.5" fill="white" opacity="0.9"/><path d="M1 5.5L6.5 9.5L12 5.5" stroke="white" stroke-width="1.2"/></svg>
+            </div>
+            Gmail Surge
+          </div>
+          <div class="user-email">user@gmail.com</div>
+        </div>
+        <div class="tab-bar">
+          <div class="tab-item active">Send</div>
+          <div class="tab-item">Templates</div>
+          <div class="tab-item">Campaigns</div>
+          <div class="tab-item">Settings</div>
+        </div>
+        <div class="step-bar">
+          <div class="step-num done">&#10003;</div>
+          <div class="step-line"></div>
+          <div class="step-num active">2</div>
+          <div class="step-line"></div>
+          <div class="step-num">3</div>
+        </div>
+        <div class="popup-inner">
+          <div class="inner-title">Compose Email</div>
+          <div class="inner-desc">Write your email and use {{variables}} from your CSV.</div>
+          <label style="font-size:11px;font-weight:600;color:#1F2937;display:block;margin-bottom:3px">Subject</label>
+          <div class="input-field" id="subjectField"><span class="typing-cursor"></span></div>
+          <div class="var-bar">
+            <span class="var-label">Insert:</span>
+            <span class="var-chip">{{first_name}}</span>
+            <span class="var-chip">{{last_name}}</span>
+            <span class="var-chip">{{company}}</span>
+            <span class="var-chip">{{role}}</span>
+          </div>
+          <div class="editor-wrap">
+            <div class="editor-toolbar">
+              <button class="tb-btn"><b>B</b></button>
+              <button class="tb-btn"><i>I</i></button>
+              <button class="tb-btn"><u>U</u></button>
+              <div class="tb-sep"></div>
+              <button class="tb-btn" style="font-size:9px">&#9776;</button>
+              <button class="tb-btn" style="font-size:9px">&#8226;</button>
+              <div class="tb-sep"></div>
+              <button class="tb-btn" style="font-size:9px">&#128279;</button>
+            </div>
+            <div class="editor-body" id="editorBody"><span class="typing-cursor" id="editorCursor"></span></div>
+          </div>
+          <div class="action-row" style="justify-content:space-between">
+            <button class="btn btn-secondary">&larr; Back</button>
+            <button class="btn btn-primary">Review & Send &rarr;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scene 4: Send -->
+<div class="scene" id="scene4">
+  <div class="s4-bg"></div>
+  <div class="s4-layout">
+    <div class="s4-left">
+      <div class="section-badge fade-in-up stagger-1" style="border-color:rgba(110,231,183,0.3);background:rgba(110,231,183,0.15);color:#A7F3D0">Step 4 &mdash; Send</div>
+      <div class="section-title fade-in-up stagger-2">Review &<br>Launch Campaign</div>
+      <p class="section-desc fade-in-up stagger-3">Preview personalized emails, send a test to yourself, then launch. Real-time progress tracking.</p>
+    </div>
+    <div style="flex-shrink:0">
+      <div class="popup-app fade-in-up stagger-2">
+        <div class="popup-header">
+          <div class="header-brand">
+            <div class="icon-sm">
+              <svg viewBox="0 0 14 14" fill="none" width="12" height="12"><rect x="1" y="4" width="11" height="7" rx="1.5" fill="white" opacity="0.9"/><path d="M1 5.5L6.5 9.5L12 5.5" stroke="white" stroke-width="1.2"/></svg>
+            </div>
+            Gmail Surge
+          </div>
+          <div class="user-email">user@gmail.com</div>
+        </div>
+        <div class="tab-bar">
+          <div class="tab-item active">Send</div>
+          <div class="tab-item">Templates</div>
+          <div class="tab-item">Campaigns</div>
+          <div class="tab-item">Settings</div>
+        </div>
+        <div class="step-bar">
+          <div class="step-num done">&#10003;</div>
+          <div class="step-line"></div>
+          <div class="step-num done">&#10003;</div>
+          <div class="step-line"></div>
+          <div class="step-num active">3</div>
+        </div>
+        <div class="popup-inner" id="reviewContent">
+          <div class="inner-title">Review & Send</div>
+          <div class="inner-desc">Preview your email and send to 248 recipients.</div>
+          <div class="preview-card">
+            <div class="preview-label">Email Preview</div>
+            <div class="preview-subject">Exciting opportunity for Sarah at Acme Inc</div>
+            <div class="preview-to">To: sarah@acme.com</div>
+            <div class="preview-body-text">
+              Hi Sarah,<br><br>
+              I hope this message finds you well! As the CTO at Acme Inc, I thought you'd be interested in our new platform.<br><br>
+              Would you have 15 minutes this week for a quick call?
+            </div>
+          </div>
+          <div class="limit-wrap">
+            <div class="limit-info"><span>Daily Gmail limit</span><span>248 / 500</span></div>
+            <div class="progress-track"><div class="progress-fill progress-indigo" id="limitFill" style="width:0%"></div></div>
+          </div>
+          <div class="alert-bar" id="readyAlert" style="opacity:0;transform:translateY(8px);transition:all 0.4s">&#10003; All 248 emails within today's limit. Ready to send!</div>
+          <div class="action-row" id="sendActions" style="gap:6px">
+            <button class="btn btn-secondary" style="flex:1">&larr; Back</button>
+            <button class="btn" style="flex:1;background:white;color:#4F46E5;border:1px solid #C7D2FE">Test Send</button>
+            <button class="btn btn-success" style="flex:1.2" id="sendAllBtn">Send All 248 &rarr;</button>
+          </div>
+          <div class="send-progress" id="sendProgress">
+            <div class="send-counter" id="sendCounter">0 / 248</div>
+            <div class="send-status" id="sendStatus">Sending emails...</div>
+            <div class="progress-track" style="margin-bottom:10px"><div class="progress-fill progress-green" id="sendFill" style="width:0%"></div></div>
+            <div class="email-log" id="emailLog"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Scene 5: Outro -->
+<div class="scene" id="scene5">
+  <div class="s5-bg"></div>
+  <div class="s0-orb s0-orb1"></div>
+  <div class="s0-orb s0-orb2"></div>
+  <div class="s5-content">
+    <div class="s5-check" id="outroCheck">&#10003;</div>
+    <h1 class="s5-title" id="outroTitle">Campaign Complete!</h1>
+    <p class="s5-sub" id="outroSub">248 personalized emails sent successfully via Gmail</p>
+    <div class="s5-cta" id="outroCta">Try Gmail Surge Free &rarr;</div>
+  </div>
+</div>
+
+<script>
+const scenes = [
+  document.getElementById('scene0'),
+  document.getElementById('scene1'),
+  document.getElementById('scene2'),
+  document.getElementById('scene3'),
+  document.getElementById('scene4'),
+  document.getElementById('scene5'),
+];
+
+let currentScene = 0;
+let isPaused = false;
+let sceneTimer = null;
+
+const SCENE_DURATIONS = [4000, 7000, 7500, 8000, 10000, 5000];
+const SCENE_LABELS = [
+  'Gmail Surge Demo',
+  'Step 1: Google OAuth Sign-In',
+  'Step 2: Upload CSV Contacts',
+  'Step 3: Compose with Variables',
+  'Step 4: Review & Send Campaign',
+  'Campaign Complete!'
+];
+
+const timelineFill = document.getElementById('timelineFill');
+const sceneLabel = document.getElementById('sceneLabel');
+
+function showScene(index) {
+  scenes.forEach(s => s.classList.remove('active'));
+  scenes[index].classList.add('active');
+  sceneLabel.textContent = SCENE_LABELS[index];
+  const progress = ((index + 1) / scenes.length) * 100;
+  timelineFill.style.width = progress + '%';
+
+  animateScene(index);
+}
+
+function nextScene() {
+  clearTimeout(sceneTimer);
+  currentScene = (currentScene + 1) % scenes.length;
+  showScene(currentScene);
+  if (!isPaused) scheduleNext();
+}
+
+function prevScene() {
+  clearTimeout(sceneTimer);
+  currentScene = (currentScene - 1 + scenes.length) % scenes.length;
+  showScene(currentScene);
+  if (!isPaused) scheduleNext();
+}
+
+function scheduleNext() {
+  clearTimeout(sceneTimer);
+  sceneTimer = setTimeout(nextScene, SCENE_DURATIONS[currentScene]);
+}
+
+document.getElementById('nextBtn').addEventListener('click', nextScene);
+document.getElementById('prevBtn').addEventListener('click', prevScene);
+document.getElementById('pauseBtn').addEventListener('click', () => {
+  isPaused = !isPaused;
+  document.getElementById('pauseBtn').innerHTML = isPaused ? '&#9654;' : '&#10074;&#10074;';
+  if (!isPaused) scheduleNext();
+  else clearTimeout(sceneTimer);
+});
+
+function animateScene(idx) {
+  const scene = scenes[idx];
+  scene.querySelectorAll('.fade-in-up').forEach(el => {
+    el.classList.remove('animated');
+    void el.offsetWidth;
+    el.classList.add('animated');
+  });
+
+  if (idx === 1) animateOAuth();
+  if (idx === 2) animateCSV();
+  if (idx === 3) animateCompose();
+  if (idx === 4) animateSend();
+  if (idx === 5) animateOutro();
+}
+
+function animateOAuth() {
+  const btn = document.getElementById('googleBtn');
+  const success = document.getElementById('oauthSuccess');
+  const cursor = document.getElementById('cursor1');
+
+  btn.classList.remove('clicked');
+  success.classList.remove('show');
+  cursor.style.opacity = '0';
+  cursor.style.transition = 'none';
+
+  setTimeout(() => {
+    cursor.style.opacity = '1';
+    cursor.style.transition = 'all 1.2s cubic-bezier(0.25,0.1,0.25,1)';
+    const btnRect = btn.getBoundingClientRect();
+    cursor.style.left = (btnRect.left + btnRect.width / 2 + 5) + 'px';
+    cursor.style.top = (btnRect.top + btnRect.height / 2 + 5) + 'px';
+  }, 1000);
+
+  setTimeout(() => {
+    btn.classList.add('clicked');
+  }, 2400);
+
+  setTimeout(() => {
+    cursor.style.opacity = '0';
+  }, 2800);
+
+  setTimeout(() => {
+    success.classList.add('show');
+  }, 3200);
+}
+
+function animateCSV() {
+  const dropZone = document.getElementById('dropZone');
+  const csvResult = document.getElementById('csvResult');
+  const fileFlying = document.getElementById('fileFlying');
+
+  dropZone.style.display = 'block';
+  dropZone.classList.remove('dragover');
+  csvResult.classList.remove('show');
+  fileFlying.classList.remove('animate');
+
+  setTimeout(() => {
+    dropZone.classList.add('dragover');
+    fileFlying.classList.add('animate');
+  }, 1500);
+
+  setTimeout(() => {
+    dropZone.style.display = 'none';
+    csvResult.classList.add('show');
+  }, 2800);
+}
+
+function animateCompose() {
+  const subjectField = document.getElementById('subjectField');
+  const editorBody = document.getElementById('editorBody');
+  const subjectText = 'Exciting opportunity for {{first_name}} at {{company}}';
+  const bodyParts = [
+    {text: 'Hi ', isVar: false},
+    {text: '{{first_name}}', isVar: true},
+    {text: ',\n\nI hope this message finds you well! As the ', isVar: false},
+    {text: '{{role}}', isVar: true},
+    {text: ' at ', isVar: false},
+    {text: '{{company}}', isVar: true},
+    {text: ', I thought you\'d be interested in our new platform.\n\nWould you have 15 minutes for a quick call?\n\nBest,\nAlex', isVar: false},
+  ];
+
+  subjectField.innerHTML = '<span class="typing-cursor"></span>';
+  editorBody.innerHTML = '';
+
+  let charIdx = 0;
+  const typeSubject = () => {
+    if (charIdx >= subjectText.length) {
+      subjectField.querySelector('.typing-cursor')?.remove();
+      typeBody();
+      return;
+    }
+    const before = subjectField.querySelector('.typing-cursor');
+    const chunk = subjectText.substring(0, charIdx + 1);
+    const formatted = chunk.replace(/\{\{(\w+)\}\}/g, '<span class="var-inline">{{$1}}</span>');
+    subjectField.innerHTML = formatted + '<span class="typing-cursor"></span>';
+    charIdx++;
+    setTimeout(typeSubject, 25);
+  };
+
+  function typeBody() {
+    let partIdx = 0;
+    let charInPart = 0;
+    let fullHTML = '';
+
+    const typeNext = () => {
+      if (partIdx >= bodyParts.length) return;
+      const part = bodyParts[partIdx];
+      if (part.isVar) {
+        fullHTML += '<span class="var-inline">' + part.text + '</span>';
+        partIdx++;
+        charInPart = 0;
+        editorBody.innerHTML = fullHTML.replace(/\n/g, '<br>');
+        setTimeout(typeNext, 80);
+      } else {
+        if (charInPart < part.text.length) {
+          fullHTML += part.text[charInPart];
+          charInPart++;
+          editorBody.innerHTML = fullHTML.replace(/\n/g, '<br>') + '<span class="typing-cursor"></span>';
+          setTimeout(typeNext, 15);
+        } else {
+          partIdx++;
+          charInPart = 0;
+          typeNext();
+        }
+      }
+    };
+    typeNext();
+  }
+
+  setTimeout(typeSubject, 800);
+}
+
+function animateSend() {
+  const limitFill = document.getElementById('limitFill');
+  const readyAlert = document.getElementById('readyAlert');
+  const sendActions = document.getElementById('sendActions');
+  const sendProgress = document.getElementById('sendProgress');
+  const sendCounter = document.getElementById('sendCounter');
+  const sendStatus = document.getElementById('sendStatus');
+  const sendFill = document.getElementById('sendFill');
+  const emailLog = document.getElementById('emailLog');
+
+  limitFill.style.width = '0%';
+  readyAlert.style.opacity = '0';
+  readyAlert.style.transform = 'translateY(8px)';
+  sendActions.style.display = 'flex';
+  sendProgress.classList.remove('show');
+  sendFill.style.width = '0%';
+  emailLog.innerHTML = '';
+
+  setTimeout(() => {
+    limitFill.style.transition = 'width 1s ease';
+    limitFill.style.width = '49.6%';
+  }, 500);
+
+  setTimeout(() => {
+    readyAlert.style.opacity = '1';
+    readyAlert.style.transform = 'translateY(0)';
+  }, 1800);
+
+  setTimeout(() => {
+    sendActions.style.display = 'none';
+    sendProgress.classList.add('show');
+
+    const emails = [
+      'sarah@acme.com',
+      'john@startup.io',
+      'lisa@bigco.com',
+      'mike@techcorp.com',
+      'anna@devshop.io',
+    ];
+
+    let count = 0;
+    const total = 248;
+    const logInterval = setInterval(() => {
+      if (count >= emails.length) {
+        clearInterval(logInterval);
+        const remaining = total - count;
+        sendCounter.textContent = total + ' / ' + total;
+        sendFill.style.width = '100%';
+        sendStatus.textContent = 'All emails sent successfully!';
+        sendStatus.style.color = '#10B981';
+        return;
+      }
+
+      count++;
+      sendCounter.textContent = count + ' / ' + total;
+      sendFill.style.transition = 'width 0.5s ease';
+      sendFill.style.width = ((count / total) * 100) + '%';
+
+      const entry = document.createElement('div');
+      entry.className = 'log-entry';
+      entry.innerHTML = '<span class="log-check">&#10003;</span> Sent to ' + emails[count - 1];
+      emailLog.insertBefore(entry, emailLog.firstChild);
+      requestAnimationFrame(() => entry.classList.add('show'));
+    }, 600);
+
+    setTimeout(() => {
+      sendCounter.textContent = '248 / 248';
+      sendFill.style.width = '100%';
+      sendStatus.textContent = 'All 248 emails sent successfully!';
+      sendStatus.style.color = '#10B981';
+      sendStatus.style.fontWeight = '600';
+    }, 5500);
+
+  }, 3500);
+}
+
+function animateOutro() {
+  const check = document.getElementById('outroCheck');
+  const title = document.getElementById('outroTitle');
+  const sub = document.getElementById('outroSub');
+  const cta = document.getElementById('outroCta');
+
+  check.classList.remove('pop');
+  title.classList.remove('show');
+  sub.classList.remove('show');
+  cta.classList.remove('show');
+
+  setTimeout(() => check.classList.add('pop'), 200);
+  setTimeout(() => title.classList.add('show'), 200);
+  setTimeout(() => sub.classList.add('show'), 200);
+  setTimeout(() => cta.classList.add('show'), 200);
+}
+
+showScene(0);
+scheduleNext();
+</script>
+</body>
+</html>
