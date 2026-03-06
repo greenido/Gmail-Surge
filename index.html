@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gmail Surge — Bulk Email Sender for Gmail</title>
+  <meta name="description" content="Send personalized bulk emails directly from your Gmail account. Import CSV contacts, use smart templates, and track every send. 100% client-side Chrome extension.">
+  <meta name="keywords" content="gmail bulk email, bulk email sender, gmail mail merge, csv email sender, chrome extension email">
+  <meta property="og:title" content="Gmail Surge — Bulk Email Sender for Gmail">
+  <meta property="og:description" content="Send personalized bulk emails directly from your Gmail account. Import CSV contacts, use smart templates, and track every send.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="nav" id="nav">
+    <div class="nav__container">
+      <a href="#" class="nav__brand">
+        <svg class="nav__logo" viewBox="0 0 40 40" fill="none" width="32" height="32">
+          <rect x="4" y="12" width="28" height="18" rx="3" fill="#6366F1" opacity="0.9"/>
+          <path d="M4 15L18 25L32 15" stroke="#4F46E5" stroke-width="2.5" fill="none"/>
+          <path d="M22 8L19 20H23L20 32" fill="#FCD34D" stroke="#F59E0B" stroke-width="1"/>
+        </svg>
+        <span class="nav__name">Gmail <span class="nav__name--accent">Surge</span></span>
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav__links" id="navLinks">
+        <a href="#features" class="nav__link">Features</a>
+        <a href="#how-it-works" class="nav__link">How It Works</a>
+        <a href="#pricing" class="nav__link">Pricing</a>
+        <a href="#faq" class="nav__link">FAQ</a>
+        <a href="https://chrome.google.com/webstore/detail/gmail-surge/YOUR_EXTENSION_ID" class="btn btn--sm btn--primary" target="_blank" rel="noopener">Add to Chrome</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero">
+    <div class="hero__bg">
+      <div class="hero__orb hero__orb--1"></div>
+      <div class="hero__orb hero__orb--2"></div>
+      <div class="hero__orb hero__orb--3"></div>
+      <div class="hero__grid"></div>
+    </div>
+    <div class="container hero__content">
+      <div class="hero__text reveal">
+        <div class="hero__badge">
+          <span class="hero__badge-dot"></span>
+          Chrome Extension &middot; Manifest V3 &middot; Free to Start
+        </div>
+        <h1 class="hero__title">
+          Bulk Emails.<br><span class="hero__title--gold">Supercharged.</span>
+        </h1>
+        <p class="hero__subtitle">
+          Send personalized bulk emails directly from your Gmail account.
+          Import CSV contacts, use smart templates, and track every send &mdash; all from a clean Chrome extension popup.
+        </p>
+        <div class="hero__ctas">
+          <a href="https://chrome.google.com/webstore/detail/gmail-surge/YOUR_EXTENSION_ID" class="btn btn--lg btn--gold" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            Add to Chrome &mdash; It's Free
+          </a>
+          <a href="#how-it-works" class="btn btn--lg btn--ghost">See How It Works</a>
+        </div>
+      </div>
+      <div class="hero__visual reveal reveal--delay-1">
+        <div class="hero__popup">
+          <div class="hero__popup-chrome">
+            <span class="dot dot--red"></span>
+            <span class="dot dot--yellow"></span>
+            <span class="dot dot--green"></span>
+          </div>
+          <div class="hero__popup-body">
+            <div class="hero__popup-icon">
+              <svg viewBox="0 0 40 40" fill="none" width="40" height="40">
+                <rect x="4" y="12" width="28" height="18" rx="3" fill="white" opacity="0.9"/>
+                <path d="M4 15L18 25L32 15" stroke="white" stroke-width="2.5" fill="none"/>
+                <path d="M22 8L19 20H23L20 32" fill="#FCD34D" stroke="#F59E0B" stroke-width="1"/>
+              </svg>
+            </div>
+            <div class="hero__popup-title">Gmail Surge</div>
+            <p class="hero__popup-desc">Send personalized bulk emails from your Gmail account using CSV contacts and templates.</p>
+            <div class="hero__popup-btn">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              Sign in with Google
+            </div>
+            <div class="hero__popup-stats">
+              <div class="hero__popup-stat">
+                <span class="hero__popup-stat-val">500</span>
+                <span class="hero__popup-stat-label">Daily Limit</span>
+              </div>
+              <div class="hero__popup-stat">
+                <span class="hero__popup-stat-val">&infin;</span>
+                <span class="hero__popup-stat-label">Templates</span>
+              </div>
+              <div class="hero__popup-stat">
+                <span class="hero__popup-stat-val">CSV</span>
+                <span class="hero__popup-stat-label">Import</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SOCIAL PROOF BAR ========== -->
+  <section class="proof">
+    <div class="container proof__grid">
+      <div class="proof__item reveal">
+        <span class="proof__icon">&#x1F4E7;</span>
+        <span class="proof__value">500</span>
+        <span class="proof__label">Daily Emails</span>
+      </div>
+      <div class="proof__item reveal reveal--delay-1">
+        <span class="proof__icon">&#x1F4DD;</span>
+        <span class="proof__value">&infin;</span>
+        <span class="proof__label">Templates</span>
+      </div>
+      <div class="proof__item reveal reveal--delay-2">
+        <span class="proof__icon">&#x1F512;</span>
+        <span class="proof__value">100%</span>
+        <span class="proof__label">Private</span>
+      </div>
+      <div class="proof__item reveal reveal--delay-3">
+        <span class="proof__icon">&#x1F680;</span>
+        <span class="proof__value">Free</span>
+        <span class="proof__label">To Start</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW IT WORKS ========== -->
+  <section class="steps" id="how-it-works">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Simple Workflow</span>
+        <h2 class="section-title">Three Steps to Your Campaign</h2>
+        <p class="section-desc">Gmail Surge guides you through a clean 3-step wizard. No learning curve, no complex setup.</p>
+      </div>
+      <div class="steps__grid">
+        <div class="steps__card reveal">
+          <div class="steps__number">1</div>
+          <div class="steps__icon-wrap">
+            <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="#6366F1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="6" y="8" width="36" height="32" rx="4"/>
+              <path d="M6 18h36"/>
+              <path d="M18 28h12"/>
+              <path d="M18 34h8"/>
+              <circle cx="12" cy="13" r="1.5" fill="#6366F1" stroke="none"/>
+              <circle cx="17" cy="13" r="1.5" fill="#6366F1" stroke="none"/>
+              <circle cx="22" cy="13" r="1.5" fill="#6366F1" stroke="none"/>
+            </svg>
+          </div>
+          <h3 class="steps__card-title">Upload Your Contacts</h3>
+          <p class="steps__card-desc">Drag &amp; drop your CSV file. Gmail Surge auto-detects the email column and all personalization fields like name, company, and role.</p>
+        </div>
+        <div class="steps__connector reveal">
+          <svg viewBox="0 0 80 24" width="80" height="24"><path d="M0 12h70m-8-8l8 8-8 8" stroke="#C7D2FE" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="steps__card reveal reveal--delay-1">
+          <div class="steps__number">2</div>
+          <div class="steps__icon-wrap">
+            <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="#6366F1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 12h32v28H8z" />
+              <path d="M14 8v4"/>
+              <path d="M24 8v4"/>
+              <path d="M34 8v4"/>
+              <path d="M14 22h10"/>
+              <path d="M14 28h20"/>
+              <path d="M14 34h14"/>
+            </svg>
+          </div>
+          <h3 class="steps__card-title">Compose Your Email</h3>
+          <p class="steps__card-desc">Write once using {{variables}} that auto-fill for each recipient. Bold, links, images &mdash; full rich text formatting at your fingertips.</p>
+        </div>
+        <div class="steps__connector reveal reveal--delay-1">
+          <svg viewBox="0 0 80 24" width="80" height="24"><path d="M0 12h70m-8-8l8 8-8 8" stroke="#C7D2FE" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="steps__card reveal reveal--delay-2">
+          <div class="steps__number">3</div>
+          <div class="steps__icon-wrap">
+            <svg viewBox="0 0 48 48" width="48" height="48" fill="none" stroke="#6366F1" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 14l18 12 18-12"/>
+              <rect x="6" y="14" width="36" height="24" rx="4"/>
+              <path d="M20 6l4-2 4 2" stroke="#F59E0B" stroke-width="2"/>
+              <circle cx="24" cy="10" r="2" fill="#FCD34D" stroke="#F59E0B" stroke-width="1"/>
+            </svg>
+          </div>
+          <h3 class="steps__card-title">Review &amp; Send</h3>
+          <p class="steps__card-desc">Preview the personalized email for each contact, send a test to yourself, then launch the full campaign with one click.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURES ========== -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Powerful Features</span>
+        <h2 class="section-title">Everything You Need to Send at Scale</h2>
+        <p class="section-desc">No external services, no backend servers. Gmail Surge packs enterprise-grade email features into a lightweight Chrome extension.</p>
+      </div>
+      <div class="features__grid">
+        <div class="features__card reveal">
+          <div class="features__card-icon">
+            <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="6" width="24" height="20" rx="3"/>
+              <path d="M4 12h24"/>
+              <path d="M12 12v14"/>
+              <path d="M8 18h2"/><path d="M8 22h2"/>
+              <path d="M16 18h8"/><path d="M16 22h6"/>
+            </svg>
+          </div>
+          <h3 class="features__card-title">CSV Import with Smart Detection</h3>
+          <p class="features__card-desc">Upload any CSV and Gmail Surge auto-maps the email column and available merge fields. Drag &amp; drop supported.</p>
+        </div>
+        <div class="features__card reveal reveal--delay-1">
+          <div class="features__card-icon">
+            <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="24" height="24" rx="3"/>
+              <path d="M10 14h3" stroke-width="3"/>
+              <path d="M16 14h6" style="font-style:italic"/>
+              <path d="M10 20h12"/>
+              <path d="M10 24h8"/>
+            </svg>
+          </div>
+          <h3 class="features__card-title">Rich Text Editor</h3>
+          <p class="features__card-desc">Full formatting toolbar with bold, italic, underline, links, lists, colors, and image embedding. Powered by Quill 2.</p>
+        </div>
+        <div class="features__card reveal reveal--delay-2">
+          <div class="features__card-icon">
+            <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 8c0-2 2-4 4-4s4 2 4 4-2 4-4 4"/>
+              <path d="M16 8c0-2 2-4 4-4s4 2 4 4-2 4-4 4"/>
+              <path d="M6 28v-4c0-3 3-6 6-6h8c3 0 6 3 6 6v4"/>
+              <path d="M12 16h8"/>
+            </svg>
+          </div>
+          <h3 class="features__card-title">{{Variable}} Personalization</h3>
+          <p class="features__card-desc">Insert merge fields from your CSV with one click. Every recipient gets a uniquely personalized email.</p>
+        </div>
+        <div class="features__card reveal">
+          <div class="features__card-icon">
+            <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="6" width="24" height="20" rx="3"/>
+              <path d="M4 12h24"/>
+              <path d="M10 18h12"/>
+              <path d="M10 22h8"/>
+              <circle cx="24" cy="24" r="5" fill="#EEF2FF" stroke="#6366F1"/>
+              <path d="M22 24h4m-2-2v4" stroke="#6366F1"/>
+            </svg>
+          </div>
+          <h3 class="features__card-title">Reusable Templates</h3>
+          <p class="features__card-desc">Save your best-performing emails as templates. Load them in seconds for your next campaign.</p>
+        </div>
+        <div class="features__card reveal reveal--delay-1">
+          <div class="features__card-icon">
+            <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="24" height="24" rx="3"/>
+              <path d="M10 20v-6"/><path d="M16 20v-10"/><path d="M22 20v-4"/>
+              <path d="M4 24h24"/>
+            </svg>
+          </div>
+          <h3 class="features__card-title">Campaign Tracking</h3>
+          <p class="features__card-desc">Real-time progress bar with per-recipient delivery status. See exactly which emails were sent or failed.</p>
+        </div>
+        <div class="features__card reveal reveal--delay-2">
+          <div class="features__card-icon">
+            <svg viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="#6366F1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 4v4"/>
+              <circle cx="16" cy="16" r="10"/>
+              <path d="M16 12v4h4"/>
+              <path d="M6 28l2-4"/>
+              <path d="M26 28l-2-4"/>
+            </svg>
+          </div>
+          <h3 class="features__card-title">Rate Limit Safeguards</h3>
+          <p class="features__card-desc">Built-in daily limit protection and configurable send delays keep you safely within Gmail's sending limits.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRIVACY ========== -->
+  <section class="privacy" id="privacy">
+    <div class="container privacy__layout">
+      <div class="privacy__visual reveal">
+        <div class="privacy__shield">
+          <svg viewBox="0 0 120 140" width="120" height="140" fill="none">
+            <path d="M60 10L10 35v40c0 30 20 50 50 60 30-10 50-30 50-60V35L60 10z" fill="url(#shieldGrad)" stroke="#6366F1" stroke-width="3"/>
+            <path d="M45 72l10 10 20-20" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="shieldGrad" x1="10" y1="10" x2="110" y2="140" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#4F46E5"/>
+                <stop offset="100%" stop-color="#6366F1"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="privacy__float privacy__float--1">No Backend</div>
+          <div class="privacy__float privacy__float--2">Chrome OAuth</div>
+          <div class="privacy__float privacy__float--3">Local Only</div>
+        </div>
+      </div>
+      <div class="privacy__text reveal reveal--delay-1">
+        <span class="section-tag">Privacy &amp; Security</span>
+        <h2 class="section-title section-title--left">Your Data Never Leaves Your Browser</h2>
+        <p class="privacy__desc">Gmail Surge runs entirely in your browser. Your contacts, email content, and Gmail credentials never touch an external server.</p>
+        <ul class="privacy__list">
+          <li>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="#34D399"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <span><strong>100% client-side</strong> &mdash; no data sent to any server</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="#34D399"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <span><strong>Chrome OAuth</strong> &mdash; secure Google sign-in, no passwords stored</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="#34D399"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <span><strong>Minimal permissions</strong> &mdash; only Gmail send scope requested</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="#34D399"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            <span><strong>Open & transparent</strong> &mdash; no tracking, no analytics, no ads</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRICING ========== -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">Simple Pricing</span>
+        <h2 class="section-title">Start Free. Upgrade When Ready.</h2>
+        <p class="section-desc">No subscriptions, no hidden fees. Try Gmail Surge for free, then unlock unlimited sending with a single purchase.</p>
+      </div>
+      <div class="pricing__grid">
+        <div class="pricing__card reveal">
+          <div class="pricing__card-header">
+            <h3 class="pricing__plan">Free</h3>
+            <div class="pricing__price">$0</div>
+            <p class="pricing__period">forever</p>
+          </div>
+          <ul class="pricing__features">
+            <li>10 emails included</li>
+            <li>All features unlocked</li>
+            <li>CSV import &amp; templates</li>
+            <li>Campaign tracking</li>
+            <li>No credit card required</li>
+          </ul>
+          <a href="https://chrome.google.com/webstore/detail/gmail-surge/YOUR_EXTENSION_ID" class="btn btn--outline btn--block" target="_blank" rel="noopener">Get Started Free</a>
+        </div>
+        <div class="pricing__card pricing__card--featured reveal reveal--delay-1">
+          <div class="pricing__badge">Most Popular</div>
+          <div class="pricing__card-header">
+            <h3 class="pricing__plan">Pro</h3>
+            <div class="pricing__price">One-Time</div>
+            <p class="pricing__period">pay once, use forever</p>
+          </div>
+          <ul class="pricing__features">
+            <li>Unlimited email sends</li>
+            <li>All features unlocked</li>
+            <li>Priority support</li>
+            <li>Future updates included</li>
+            <li>Instant activation</li>
+          </ul>
+          <a href="https://chrome.google.com/webstore/detail/gmail-surge/YOUR_EXTENSION_ID" class="btn btn--gold btn--block" target="_blank" rel="noopener">Upgrade to Pro</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FAQ ========== -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">FAQ</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+      </div>
+      <div class="faq__list">
+        <details class="faq__item reveal">
+          <summary class="faq__question">How many emails can I send per day?</summary>
+          <div class="faq__answer">
+            <p>Gmail Surge respects Gmail's built-in sending limits. For most Gmail accounts, the limit is around 500 emails per day. Google Workspace accounts may have higher limits. The extension includes configurable daily limit safeguards to keep you safe.</p>
+          </div>
+        </details>
+        <details class="faq__item reveal">
+          <summary class="faq__question">Is my data safe?</summary>
+          <div class="faq__answer">
+            <p>Absolutely. Gmail Surge runs 100% in your browser. Your CSV contacts, email content, and credentials are never sent to any external server. Authentication uses Chrome's built-in OAuth flow with Google &mdash; no passwords are stored.</p>
+          </div>
+        </details>
+        <details class="faq__item reveal">
+          <summary class="faq__question">What is {{variable}} personalization?</summary>
+          <div class="faq__answer">
+            <p>When you upload a CSV with columns like "first_name" or "company", you can insert {{first_name}} or {{company}} into your email. Gmail Surge automatically replaces these placeholders with the actual value for each recipient.</p>
+          </div>
+        </details>
+        <details class="faq__item reveal">
+          <summary class="faq__question">How does the Pro upgrade work?</summary>
+          <div class="faq__answer">
+            <p>After purchasing Pro, you'll receive an activation code. Paste it in the Settings tab of the extension and you'll be instantly upgraded to unlimited sending. It's a one-time purchase &mdash; no recurring fees.</p>
+          </div>
+        </details>
+        <details class="faq__item reveal">
+          <summary class="faq__question">Does it work with Google Workspace?</summary>
+          <div class="faq__answer">
+            <p>Yes! Gmail Surge works with both personal Gmail accounts and Google Workspace (formerly G Suite) accounts. You sign in using Chrome's built-in Google authentication.</p>
+          </div>
+        </details>
+        <details class="faq__item reveal">
+          <summary class="faq__question">Can I include images in my emails?</summary>
+          <div class="faq__answer">
+            <p>Yes. The rich text editor supports image insertion via URL or file upload. You can resize images directly within the editor before sending.</p>
+          </div>
+        </details>
+        <details class="faq__item reveal">
+          <summary class="faq__question">Will my emails go to spam?</summary>
+          <div class="faq__answer">
+            <p>Gmail Surge sends emails through Gmail's official API, which means they're delivered just like regular Gmail messages. Following email best practices (personalized content, relevant recipients, reasonable volume) will help ensure inbox delivery.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FINAL CTA ========== -->
+  <section class="cta">
+    <div class="cta__bg">
+      <div class="cta__orb cta__orb--1"></div>
+      <div class="cta__orb cta__orb--2"></div>
+    </div>
+    <div class="container cta__content reveal">
+      <h2 class="cta__title">Ready to Supercharge<br>Your Gmail?</h2>
+      <p class="cta__desc">Join thousands of professionals who send smarter with Gmail Surge. Free to start, powerful from day one.</p>
+      <a href="https://chrome.google.com/webstore/detail/gmail-surge/YOUR_EXTENSION_ID" class="btn btn--lg btn--white" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        Add to Chrome &mdash; It's Free
+      </a>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container footer__layout">
+      <div class="footer__brand">
+        <a href="#" class="nav__brand">
+          <svg class="nav__logo" viewBox="0 0 40 40" fill="none" width="28" height="28">
+            <rect x="4" y="12" width="28" height="18" rx="3" fill="#6366F1" opacity="0.9"/>
+            <path d="M4 15L18 25L32 15" stroke="#4F46E5" stroke-width="2.5" fill="none"/>
+            <path d="M22 8L19 20H23L20 32" fill="#FCD34D" stroke="#F59E0B" stroke-width="1"/>
+          </svg>
+          <span class="nav__name">Gmail <span class="nav__name--accent">Surge</span></span>
+        </a>
+        <p class="footer__tagline">Bulk email sending for Gmail, done right.</p>
+      </div>
+      <div class="footer__links">
+        <div class="footer__col">
+          <h4>Product</h4>
+          <a href="#features">Features</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div class="footer__col">
+          <h4>Legal</h4>
+          <a href="terms.html">Terms of Service</a>
+          <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <div class="footer__col">
+          <h4>Resources</h4>
+          <a href="https://chrome.google.com/webstore/detail/gmail-surge/YOUR_EXTENSION_ID" target="_blank" rel="noopener">Chrome Web Store</a>
+          <a href="mailto:support@gmailsurge.com">Contact Support</a>
+        </div>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p>&copy; 2025 Gmail Surge. All rights reserved.</p>
+      <p>Not affiliated with or endorsed by Google LLC.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
