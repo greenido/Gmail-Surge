@@ -1,0 +1,12 @@
+{
+  "name": "gmail-bulk-sender-website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "node test-links.mjs",
+    "test:local": "node test-links.mjs --local-only"
+  },
+  "devDependencies": {
+    "cheerio": "^1.0.0"
+  }
+}

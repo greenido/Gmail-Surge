@@ -5,7 +5,7 @@
 <h1 align="center">Gmail Surge — Promotional Website</h1>
 
 <p align="center">
-  <strong>The landing page for <a href="https://chrome.google.com/webstore/detail/gmail-surge/YOUR_EXTENSION_ID">Gmail Surge</a>, a Chrome extension that lets you send personalized bulk emails directly from Gmail.</strong>
+  <strong>The landing page for <a href="https://chromewebstore.google.com/detail/nbglbbelbkmiddpcfmmabbfeobemldki?utm_source=item-share-cb">Gmail Surge</a>, a Chrome extension that lets you send personalized bulk emails directly from Gmail.</strong>
 </p>
 
 <p align="center">
@@ -180,7 +180,7 @@ Change any token value and it propagates across the entire site.
 Search for `YOUR_EXTENSION_ID` across the HTML files and replace it with the real Chrome Web Store extension ID once published:
 
 ```
-https://chrome.google.com/webstore/detail/gmail-surge/YOUR_EXTENSION_ID
+https://chromewebstore.google.com/detail/nbglbbelbkmiddpcfmmabbfeobemldki?utm_source=item-share-cb
 ```
 
 ### Typography
@@ -232,7 +232,7 @@ The site is designed to be fast out of the box:
 
 | Resource | Link |
 |---|---|
-| Gmail Surge Extension | [Chrome Web Store](https://chrome.google.com/webstore/detail/gmail-surge/YOUR_EXTENSION_ID) |
+| Gmail Surge Extension | [Chrome Web Store](https://chromewebstore.google.com/detail/nbglbbelbkmiddpcfmmabbfeobemldki?utm_source=item-share-cb) |
 | Privacy Policy | [`privacy.html`](privacy.html) |
 | Terms of Service | [`terms.html`](terms.html) |
 | Support | support@gmailsurge.com |
